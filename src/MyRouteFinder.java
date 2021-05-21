@@ -30,13 +30,10 @@ public class MyRouteFinder implements RouteFinder {
             for (Point point: getNearPoints(nowRoute.Way.get(nowRoute.Way.size() - 1), map, nowRoute.VisitedPoints)) {
                 ArrayList<Point> newWay = new ArrayList<>(nowRoute.Way);
                 newWay.add(point);
+                if(minRoute.Way != null && minRoute.Way.size() < newWay.size())
+                    break;
                 if(map[point.y][point.x] == endSymbol) {
-                    if(minRoute.Way == null){
-                        minRoute = nowRoute;
-                    }
-                    else if(minRoute.Way.size() > nowRoute.Way.size()){
-                        minRoute = nowRoute;
-                    }
+                    minRoute = nowRoute;
                 }
                 nowRoute.VisitedPoints.add(point);
                 Route newRoute = new Route();
